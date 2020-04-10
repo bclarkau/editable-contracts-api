@@ -2,20 +2,21 @@ const { v4: uuidv4 } = require('uuid');
 var mongoose = require('mongoose');
 
 // contract database schema
+// force schema to save blank objects
 var contractSchema = mongoose.Schema({
-    author: {
-        type: Number,
-        required: true
-    },
-    ref: {
-        type: String,
-        default: uuidv4
-    },
-	created_on: {
-		type: Date,
-		default: Date.now
-	}
-});
+	event:			{ type: Object, default: {} },
+	hotel:			{ type: Object, default: {} },
+	nights:			{ type: Array, default: [] },
+	allocation:		{ type: Object, default: {} },
+	costs:			{ type: Array, default: [] },
+	release:		{ type: Array, default: [] },
+	contact:		{ type: Object, default: {} },
+	cancellation:	{ type: Object, default: {} },
+	author:			{ type: Number, default: 0 },
+	status:			{ type: String, default: 'draft' },
+	ref:			{ type: String, default: uuidv4 },
+	created_on: 	{ type: Date, default: Date.now }
+}, { minimize: false });
 
 // export contract model with schema
 var Contract = module.exports = mongoose.model('contract', contractSchema);
