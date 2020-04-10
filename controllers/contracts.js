@@ -1,15 +1,15 @@
 var ContractModel = require('../models/contracts');
 
 // list all contracts
-exports.list = function(req, res) {
-	ContractModel.getAllContracts(function(err, contracts) {
-		if (err) {
+exports.list = (req, res) => {
+	ContractModel.getAllContracts((err, contracts) => {
+		if(err) {
 			res.json({
 				status: 'error',
 				message: err,
 			});
-        }
-        
+		}
+		
 		res.json({
 			status: 200,
 			data: contracts
@@ -18,13 +18,13 @@ exports.list = function(req, res) {
 };
 
 // add a new contract
-exports.add = function(req, res) {
-    var contract = new ContractModel();
-    contract.author = req.body.author;
+exports.add = (req, res) => {
+	var contract = new ContractModel();
+	contract.author = req.body.author;
 
-    // save contract
-	contract.save(function(err) {
-		if (err) {
+	// save contract
+	contract.save((err) => {
+		if(err) {
 			res.json(err);
 		}
 		
@@ -36,34 +36,39 @@ exports.add = function(req, res) {
 };
 
 // view a contract by reference ID
-exports.view = function(req, res) {
-	ContractModel.findOne({ ref: req.params.ref }, function(err, contract) {
-		if (err) {
-			res.send(err);
-		}
+exports.get = (req, res) => {
+	ContractModel.findOne({ ref: req.params.ref }, (err, contract) => {
+		if(err) { res.json(err) }
 
-		res.json(contract);
+		// if a contract is found, return it
+		if(contract) {
+			res.json(contract);
+		} 
+		// otherwise throw 404
+		else {
+			res.status(404).end();
+		}
 	});
 };
 
 // update a contract by reference ID
-exports.update = function(req, res) {
-    ContractModel.findOne({ ref: req.params.ref }, function(err, contract) {
-		if (err) {
-            res.send(err);
-        }
-        
-        // params to update
-        contract.author = req.body.author;
+exports.update = (req, res) => {
+	ContractModel.findOne({ ref: req.params.ref }, (err, contract) => {
+		if(err) {
+			res.send(err);
+		}
+		
+		// params to update
+		contract.author = req.body.author;
 		
 		// save the contract and check for errors
-		contract.save(function(err) {
-			if (err) {
+		contract.save((err) => {
+			if(err) {
 				res.json(err);
 			}
 
 			res.json({
-                status: 200,
+				status: 200,
 				message: 'Contract Info updated',
 				data: contract
 			});
@@ -72,11 +77,11 @@ exports.update = function(req, res) {
 };
 
 // delete a contract by reference ID
-exports.delete = function(req, res) {
+exports.delete = (req, res) => {
 	ContractModel.remove({
 		ref: req.params.ref
-	}, function(err, contract) {
-		if (err) {
+	}, (err, contract) => {
+		if(err) {
 			res.send(err);
 		}
 		

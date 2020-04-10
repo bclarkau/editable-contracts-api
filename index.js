@@ -19,7 +19,7 @@ if(!db) {
 }
 
 // setup server
-var port = process.env.PORT || 8080;
+var port = 8888;
 
 // include v1 routes
 app.use('/v1', routes);
