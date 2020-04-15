@@ -6,13 +6,11 @@ var mongoose = require('mongoose');
 var contractSchema = mongoose.Schema({
 	event:			{ type: Object, default: {} },
 	hotel:			{ type: Object, default: {} },
-	nights:			{ type: Array, default: [] },
 	allocation:		{ type: Object, default: {} },
-	costs:			{ type: Array, default: [] },
-	release:		{ type: Array, default: [] },
+	costs:			{ type: Array, default: {} },
 	contact:		{ type: Object, default: {} },
 	cancellation:	{ type: Object, default: {} },
-	author:			{ type: Number, default: 0 },
+	author:			{ type: Object, default: {} },
 	status:			{ type: String, default: 'draft' },
 	ref:			{ type: String, default: uuidv4 },
 	created_on: 	{ type: Date, default: Date.now }

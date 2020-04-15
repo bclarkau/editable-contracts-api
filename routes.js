@@ -21,13 +21,13 @@ var contractController = require('./controllers/contracts');
 
 // Contact routes
 router.route('/contracts')
-	.get(cors(), contractController.list)		   // list all contracts
-	.post(cors(), contractController.add);		  // add new contract
+	.get(cors(), contractController.list)		// list all contracts
+	.post(cors(), contractController.add);		// add new contract
 
 router.route('/contract/:ref')
-	.post(cors(), contractController.get)		   // get a contract
-	.patch(cors(), contractController.update)	   // update a contract 
-	.delete(cors(), contractController.delete);	 // delete a contract 
+	.post(cors(), contractController.get)		// get a contract
+	.patch(cors(), contractController.update)	// update a contract 
+	.delete(cors(), contractController.delete);	// delete a contract 
 	
 // Export API routes
 module.exports = router;

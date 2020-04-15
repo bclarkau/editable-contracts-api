@@ -20,6 +20,15 @@ exports.list = (req, res) => {
 // add a new contract
 exports.add = (req, res) => {
 	var contract = new ContractModel();
+
+	// map valid keys
+	contract.event = req.body.event;
+	contract.hotel = req.body.hotel;
+	contract.allocation = req.body.allocation;
+	contract.costs = req.body.costs;
+	contract.release = req.body.release;
+	contract.contact = req.body.contact;
+	contract.cancellation =	req.body.cancellation;
 	contract.author = req.body.author;
 
 	// save contract
