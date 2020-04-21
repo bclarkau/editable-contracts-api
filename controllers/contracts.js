@@ -60,31 +60,6 @@ exports.get = (req, res) => {
 	});
 };
 
-// update a contract by reference ID
-exports.update = (req, res) => {
-	ContractModel.findOne({ ref: req.params.ref }, (err, contract) => {
-		if(err) {
-			res.send(err);
-		}
-		
-		// params to update
-		contract.author = req.body.author;
-		
-		// save the contract and check for errors
-		contract.save((err) => {
-			if(err) {
-				res.json(err);
-			}
-
-			res.json({
-				status: 200,
-				message: 'Contract Info updated',
-				data: contract
-			});
-		});
-	});
-};
-
 // delete a contract by reference ID
 exports.delete = (req, res) => {
 	ContractModel.remove({
