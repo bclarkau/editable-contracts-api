@@ -1,4 +1,5 @@
 var ContractModel = require('../models/contracts');
+const merge = require('deepmerge');
 
 // list all contracts
 exports.list = (req, res) => {
@@ -57,6 +58,38 @@ exports.get = (req, res) => {
 		else {
 			res.status(404).end();
 		}
+	});
+};
+
+// update the event section of a contract by reference ID
+exports.update = (req, res) => {
+	ContractModel.findOne({ ref: req.params.ref }, (err, contract) => {			
+		if(err) { res.status(500).json(err) }
+		if(!contract) { res.status(404).json({ 'message' : 'Contract not found' }) }
+		
+		// copy the current contract object (without ID)
+		let current = contract.toObject();
+		delete current._id; 
+
+		// merge changed values
+		let merged = merge(current, req.body);
+
+		// update contract with new data
+		for(let [key, value] of Object.entries(merged)) {
+			contract[key] = value;
+			contract.markModified(key);
+		}
+
+		// save updated contract and check for errors
+		contract.save((err) => {
+			if(err) { res.status(500).send(err) }
+
+			res.status(200).send({
+				status: 200,
+				message: 'Contract Info updated',
+				data: contract
+			});
+		});
 	});
 };
 

@@ -26,16 +26,8 @@ router.route('/contracts')
 
 router.route('/contract/:ref')
 	.post(cors(), contractController.get)		// get a contract
+	.patch(cors(), contractController.update)	// update event section
 	.delete(cors(), contractController.delete);	// delete a contract 
-
-///////////////////////////////////////////////////////////////////
-// Section routes
-///////////////////////////////////////////////////////////////////
-
-var contractEventController = require('./controllers/sectionEvent');
-
-router.route('/contract/:ref/event')
-	.patch(cors(), contractEventController.update)	// update event section
 
 // Export API routes
 module.exports = router;
