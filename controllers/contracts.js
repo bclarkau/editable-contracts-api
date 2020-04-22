@@ -25,6 +25,7 @@ exports.add = (req, res) => {
 	// map valid keys
 	contract.event = req.body.event;
 	contract.hotel = req.body.hotel;
+	contract.request = req.body.request;
 	contract.allocation = req.body.allocation;
 	contract.costs = req.body.costs;
 	contract.release = req.body.release;

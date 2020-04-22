@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var contractSchema = mongoose.Schema({
 	event:			{ type: Object, default: {} },
 	hotel:			{ type: Object, default: {} },
+	request:		{ type: String, default: '' },
 	allocation:		{ type: Object, default: {} },
 	costs:			{ type: Array, default: {} },
 	contact:		{ type: Object, default: {} },
