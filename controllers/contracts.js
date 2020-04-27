@@ -64,6 +64,8 @@ exports.get = (req, res) => {
 
 // update the event section of a contract by reference ID
 exports.update = (req, res) => {
+	const overwriteMerge = (destinationArray, sourceArray, options) => sourceArray;
+
 	ContractModel.findOne({ ref: req.params.ref }, (err, contract) => {			
 		if(err) { res.status(500).json(err) }
 		if(!contract) { res.status(404).json({ 'message' : 'Contract not found' }) }
@@ -73,7 +75,7 @@ exports.update = (req, res) => {
 		delete current._id; 
 
 		// merge changed values
-		let merged = merge(current, req.body);
+		let merged = merge(current, req.body, { arrayMerge: overwriteMerge });
 
 		// update contract with new data
 		for(let [key, value] of Object.entries(merged)) {
