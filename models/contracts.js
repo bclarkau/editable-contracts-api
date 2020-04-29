@@ -14,7 +14,9 @@ var contractSchema = mongoose.Schema({
 	author:			{ type: Object, default: {} },
 	status:			{ type: String, default: 'draft' },
 	ref:			{ type: String, default: uuidv4 },
-	created_on: 	{ type: Date, default: Date.now }
+	created_on: 	{ type: Date, default: Date.now },
+	signature: 		{ type: String, default: '' },
+	signed_on: 		{ type: Date, default: '' }
 }, { minimize: false });
 
 // export contract model with schema
