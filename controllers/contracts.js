@@ -32,6 +32,7 @@ exports.add = (req, res) => {
 	contract.contact = req.body.contact;
 	contract.cancellation =	req.body.cancellation;
 	contract.author = req.body.author;
+	contract.approved_on = req.body.approved_on; // demo
 
 	// save contract
 	contract.save((err) => {
