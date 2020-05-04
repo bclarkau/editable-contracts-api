@@ -1,3 +1,4 @@
+require('dotenv').config();
 let express = require('express');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
@@ -9,7 +10,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // connect database
-mongoose.connect('mongodb://localhost/editable-contracts', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 
 if(!db) {
