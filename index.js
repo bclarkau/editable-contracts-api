@@ -10,14 +10,17 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // connect database
-mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true, useUnifiedTopology: true });
-var db = mongoose.connection;
-
-if(!db) {
-	console.log('Error connecting to database');
-} else {
+try {
+	mongoose.connect(process.env.DB_STRING, {
+		useUnifiedTopology: true,
+		useNewUrlParser: true
+	});
 	console.log('Database connection successful');
-}
+} catch(err) {
+	console.error('Error connecting to database');
+	console.error(err.message);
+	process.exit(1);
+} 
 
 // setup server
 var port = process.env.PORT || 8888;
